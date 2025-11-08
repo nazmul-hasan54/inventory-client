@@ -1,1 +1,70 @@
-<p>order-create works!</p>
+<div class="card">
+  <div class="card-header bg-primary text-white">
+    <h5 class="m-0">Create Order</h5>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label class="form-label">Customer Name</label>
+        <input type="text" class="form-control" formControlName="customerName" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Order Date</label>
+        <input type="date" class="form-control" formControlName="orderDate" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select class="form-select" formControlName="status">
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <h6>Order Items</h6>
+        <button type="button" class="btn btn-secondary mb-3" (click)="addItem()">+ Add Item</button>
+      </div>
+      <table class="table table-bordered mb-3">
+        <thead>
+        <tr>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th style="width: 40px;"></th>
+        </tr>
+        </thead>
+        <tbody formArrayName="items">
+        <tr *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+          <td>
+            <select class="form-select" formControlName="productId">
+              <option [ngValue]="null">-- Select Product --</option>
+              <option *ngFor="let p of products" [value]="p.id">{{ p.name }}</option>
+            </select>
+          </td>
+          <td>
+            <input type="number" class="form-control" formControlName="quantity" />
+          </td>
+          <td>
+            <input type="number" class="form-control" formControlName="unitPrice" />
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-sm btn-danger" (click)="removeItem(i)" *ngIf="items.length > 1">
+              &times;
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div>
+        <button type="submit" class="btn btn-primary">Save Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+

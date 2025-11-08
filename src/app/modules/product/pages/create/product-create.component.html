@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+    <div class="card shadow-sm">
+      <div class="card-body">
+
+        <h3 class="text-center mb-4">
+          {{ isEdit ? 'Edit Product' : 'Add Product' }}
+        </h3>
+
+        <form [formGroup]="form" (ngSubmit)="$Submit_onClick()">
+
+          <div class="mb-3">
+            <label>Name <span class="text-danger">*</span></label>
+            <input formControlName="name" class="form-control"
+                   [class.is-invalid]="form.get('name')?.touched && form.get('name')?.invalid">
+            <div class="invalid-feedback">
+              Name is required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Price <span class="text-danger">*</span></label>
+            <input type="number" formControlName="price" class="form-control"
+                   [class.is-invalid]="form.get('price')?.touched && form.get('price')?.invalid">
+            <div class="invalid-feedback">
+              Price is required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Stock Quantity <span class="text-danger">*</span></label>
+            <input type="number" formControlName="stockQuantity" class="form-control"
+                   [class.is-invalid]="form.get('stockQuantity')?.touched && form.get('stockQuantity')?.invalid">
+            <div class="invalid-feedback">
+              Stock Quantity is required.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea formControlName="description" class="form-control"></textarea>
+          </div>
+
+          <button class="btn btn-primary w-100" type="submit">
+            {{ isEdit ? 'Update' : 'Save' }}
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+

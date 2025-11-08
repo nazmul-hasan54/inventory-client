@@ -20,8 +20,24 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'products', pathMatch: 'full' },
       { path: 'products', component: ProductListComponent },
+      {
+        path: 'product/add',
+        loadComponent: () => import('./modules/product/pages/create/product-create.component')
+          .then(m => m.ProductCreateComponent)
+      },
+      {
+        path: 'product/edit/:id',
+        loadComponent: () => import('./modules/product/pages/create/product-create.component')
+          .then(m => m.ProductCreateComponent)
+      },
       { path: 'orders', loadComponent: () =>
           import('./modules/order/pages/list/order-list.component').then(m => m.OrderListComponent)
+      },
+      { path: 'order/add', loadComponent: () =>
+          import('./modules/order/pages/create/order-create.component').then(m => m.OrderCreateComponent)
+      },
+      { path: 'order/view/:id', loadComponent: () =>
+          import('./modules/order/pages/view/order-view.component').then(m => m.OrderViewComponent)
       },
     ]
   },

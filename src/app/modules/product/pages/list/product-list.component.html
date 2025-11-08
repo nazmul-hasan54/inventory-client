@@ -1,7 +1,7 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h3 class="m-0">Products</h3>
 
-  <button class="btn btn-primary" (click)="onAddProduct()">
+  <button class="btn btn-primary" (click)=" $AddProduct_onClick()">
     + Add Product
   </button>
 </div>
@@ -30,11 +30,11 @@
           View
         </button>
 
-        <button class="btn btn-sm btn-warning me-1" (click)="onEdit(p)">
+        <button class="btn btn-sm btn-warning me-1" (click)="$Edit_onClick(p)">
           Edit
         </button>
 
-        <button class="btn btn-sm btn-danger">
+        <button class="btn btn-sm btn-danger" (click)="$Delete_onClick(p)">
           Delete
         </button>
 

@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {Product} from '../../models/product.model';
 import {ProductService} from '../../services/product.service';
 import {CommonModule} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -13,6 +14,7 @@ import {CommonModule} from '@angular/common';
 })
 export class ProductListComponent implements OnInit {
   private _productService = inject(ProductService);
+  private _router = inject(Router);
 
   products: Product[] = [];
 
@@ -20,20 +22,28 @@ export class ProductListComponent implements OnInit {
     this._productService.getAll().subscribe(res => this.products = res as any[]);
   }
 
-  onAddProduct() {
-    // open modal or navigate to add form
+  $AddProduct_onClick() {
+    this._router.navigate(['/product/add']);
   }
 
   onView(product: any) {
     // open details modal or redirect
   }
 
-  onEdit(product: any) {
-    // open edit modal or redirect
+  $Edit_onClick(product: any) {
+    this._router.navigate(['/product/edit', product.id]);
   }
 
-  onDelete(id: number) {
+  $Delete_onClick(product: any  ) {
     if (!confirm("Are you sure you want to delete this product?")) return;
-    // call API delete
+    this._productService.delete(product.id).subscribe({
+      next: () => {
+        alert('Product deleted successfully.');
+        this.products = this.products.filter(p => p.id !== product.id);
+      },
+      error: () => {
+        alert('Product deleted failed');
+      }
+    })
   }
 }

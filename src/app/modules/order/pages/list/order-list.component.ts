@@ -1,11 +1,40 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
+import {OrderService} from '../../services/order.service';
+import {CommonModule, CurrencyPipe, DatePipe} from '@angular/common';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-order-list',
-  imports: [],
+  imports: [
+    DatePipe,
+    CurrencyPipe,
+    CommonModule,
+  ],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.css'
 })
-export class OrderListComponent {
+export class OrderListComponent implements OnInit {
+  private _orderService = inject(OrderService);
+  private _router = inject(Router);
 
+  orders: any[] = [];
+
+  ngOnInit(): void {
+    this.loadOrders();
+  }
+
+  loadOrders() {
+    this._orderService.getAll().subscribe({
+      next: (res: any) => this.orders = res,
+      error: () => alert('Failed to load orders')
+    });
+  }
+
+  $AddOrder_onClick() {
+    this._router.navigate(['/order/add']);
+  }
+
+  $ViewOrder_onClick(order: any) {
+    this._router.navigate(['/order/view', order.id]);
+  }
 }
