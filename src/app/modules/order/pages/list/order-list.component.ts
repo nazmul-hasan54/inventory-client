@@ -35,6 +35,12 @@ export class OrderListComponent implements OnInit {
   }
 
   $ViewOrder_onClick(order: any) {
-    this._router.navigate(['/order/view', order.id]);
+    if (!order?.orderId) {
+      alert('Order ID not found!');
+      return;
+    }
+
+    this._router.navigate(['/order/view', order.orderId]);
   }
+
 }

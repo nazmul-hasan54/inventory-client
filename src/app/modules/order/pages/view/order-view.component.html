@@ -6,19 +6,18 @@
   <div class="card-body">
 
     <div class="row mb-3">
-      <div class="col-md-4">
+      <div class="col-md-3">
         <strong>Customer Name:</strong> {{ order.customerName }}
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <strong>Order Date:</strong> {{ order.orderDate | date:'dd-mm-yyyy' }}
       </div>
-      <div class="col-md-4">
+      <div class="col-md-3">
         <strong>Status:</strong> {{ order.status }}
       </div>
-    </div>
-
-    <div class="mb-3">
-      <strong>Total Amount:</strong> {{ order.totalAmount | currency: ' ' }}
+      <div class="col-md-3">
+        <strong>Total Amount:</strong> {{ order.totalAmount | currency: ' ' }}
+      </div>
     </div>
 
     <h6>Order Items</h6>
@@ -38,8 +37,8 @@
           <td>{{ i + 1 }}</td>
           <td>{{ item.productId }}</td>
           <td>{{ item.quantity }}</td>
-          <td>{{ item.unitPrice | currency }}</td>
-          <td>{{ item.quantity * item.unitPrice | currency }}</td>
+          <td>{{ item.unitPrice | currency: ' ' }}</td>
+          <td>{{ item.quantity * item.unitPrice | currency: ' ' }}</td>
         </tr>
         </tbody>
       </table>

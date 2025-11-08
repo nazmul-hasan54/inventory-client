@@ -5,9 +5,6 @@ import {LayoutComponent} from './modules/layout/layout.component';
 import {authGuard} from './guards/auth.guard';
 
 export const routes: Routes = [
-  // { path: 'login', component: LoginComponent },
-  // { path: 'products', component: ProductListComponent },
-  // { path: '', redirectTo: 'login', pathMatch: 'full' }
   { path: 'login', component: LoginComponent },
   { path: 'register', loadComponent: () =>
       import('./modules/auth/features/register/register.component').then(m => m.RegisterComponent)
@@ -30,12 +27,20 @@ export const routes: Routes = [
         loadComponent: () => import('./modules/product/pages/create/product-create.component')
           .then(m => m.ProductCreateComponent)
       },
+      {
+        path: 'product/view/:id',
+        loadComponent: () => import('./modules/product/pages/view/product-view.component')
+          .then(m => m.ProductViewComponent)
+      },
+
       { path: 'orders', loadComponent: () =>
           import('./modules/order/pages/list/order-list.component').then(m => m.OrderListComponent)
       },
+
       { path: 'order/add', loadComponent: () =>
           import('./modules/order/pages/create/order-create.component').then(m => m.OrderCreateComponent)
       },
+
       { path: 'order/view/:id', loadComponent: () =>
           import('./modules/order/pages/view/order-view.component').then(m => m.OrderViewComponent)
       },
